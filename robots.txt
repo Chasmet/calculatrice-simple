@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://chasmet.github.io/calculatrice-simple/sitemap.xml
+Sitemap: https://calcuauto-france.onrender.com/sitemap.xml
