@@ -1,74 +1,135 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculatrice Simple</title>
-    <style>
-        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f0f0f0; }
-        .calculator { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
-        input { width: 100%; padding: 10px; font-size: 24px; text-align: right; margin-bottom: 10px; }
-        .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-        button { padding: 20px; font-size: 18px; border: none; border-radius: 5px; cursor: pointer; }
-        button:hover { background: #e0e0e0; }
-        .operator { background: #ff9500; color: white; }
-        .operator:hover { background: #e08600; }
-        .clear { background: #ff3b5c; color: white; }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="CalcuAuto France : calculez gratuitement le coût d'un trajet, d'une recharge électrique, d'un crédit auto, votre budget voiture mensuel et le coût total de possession.">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="canonical" href="https://chasmet.github.io/calculatrice-simple/">
+  <link rel="manifest" href="manifest.webmanifest">
+  <title>CalcuAuto France — Calcul coût voiture, carburant, recharge et crédit auto</title>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"CalcuAuto France",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"Any",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},
+    "description":"Cinq calculateurs gratuits pour estimer le budget et le coût d'utilisation d'une voiture."
+  }
+  </script>
+  <style>
+    :root{--bg:#07111f;--panel:#0f1b2d;--card:#142238;--text:#f8fafc;--muted:#a9b7ca;--line:#263750;--accent:#37d39a;--accent2:#60a5fa;--danger:#fb7185}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,#06101d,#0a1422 48%,#07111f);color:var(--text);line-height:1.5}
+    a{color:inherit}.wrap{width:min(1120px,calc(100% - 28px));margin:auto}.top{position:sticky;top:0;z-index:20;background:rgba(7,17,31,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+    .nav{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{font-weight:900;letter-spacing:-.03em;font-size:1.2rem}.brand span{color:var(--accent)}
+    .support,.primary{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border:0;border-radius:14px;padding:12px 16px;font-weight:800;cursor:pointer;background:var(--accent);color:#052016}.support:hover,.primary:hover{filter:brightness(1.07)}
+    .hero{padding:64px 0 34px;text-align:center}.eyebrow{color:var(--accent);font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:.78rem}.hero h1{font-size:clamp(2.25rem,7vw,4.7rem);line-height:.98;letter-spacing:-.055em;margin:12px auto 18px;max-width:920px}.hero p{max-width:720px;margin:auto;color:var(--muted);font-size:1.08rem}
+    .pills{display:flex;gap:9px;flex-wrap:wrap;justify-content:center;margin:28px auto 0}.pill{border:1px solid var(--line);background:#0d1929;border-radius:999px;padding:9px 12px;color:#d9e4f2;font-size:.9rem}
+    .tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:30px 0 16px;overflow:auto}.tab{border:1px solid var(--line);background:var(--panel);color:#cbd5e1;padding:13px 10px;border-radius:13px;font-weight:800;cursor:pointer;white-space:nowrap}.tab.active{background:var(--accent);color:#052016;border-color:transparent}
+    .tool{display:none}.tool.active{display:grid;grid-template-columns:1.02fr .98fr;gap:18px}.card{background:linear-gradient(180deg,#101e31,#0c1828);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 18px 50px rgba(0,0,0,.18)}
+    .card h2,.card h3{margin-top:0}.card p{color:var(--muted)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}label{font-size:.9rem;font-weight:750;color:#d9e4f2}input{width:100%;border:1px solid #334760;background:#091523;color:white;border-radius:12px;padding:13px 12px;font-size:1rem;outline:none}input:focus{border-color:var(--accent2);box-shadow:0 0 0 3px rgba(96,165,250,.12)}
+    .calc{margin-top:16px;width:100%;padding:14px;border:0;border-radius:13px;background:var(--accent2);color:#07111f;font-weight:900;font-size:1rem;cursor:pointer}.result{display:flex;flex-direction:column;justify-content:center;min-height:270px}.big{font-size:clamp(2.4rem,7vw,4.2rem);font-weight:950;letter-spacing:-.05em;margin:2px 0 8px}.sub{color:var(--muted)}.breakdown{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}.metric{padding:13px;border:1px solid var(--line);border-radius:13px;background:#091523}.metric b{display:block;font-size:1.12rem}.metric span{font-size:.82rem;color:var(--muted)}
+    .content{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:44px 0}.info{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px}.info h3{margin-top:0}.info p{color:var(--muted);margin-bottom:0}.money{margin:45px 0;background:linear-gradient(135deg,#10213a,#0b2b25);border:1px solid #2f5b4f;border-radius:24px;padding:28px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}.money p{color:#c6d4df;margin:7px 0 0}.money a{white-space:nowrap}
+    details{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px 17px;margin:10px 0}summary{cursor:pointer;font-weight:800}details p{color:var(--muted)}footer{padding:34px 0 48px;color:#8090a5;font-size:.88rem}.tiny{font-size:.8rem;color:#78899f;margin-top:14px}
+    @media(max-width:820px){.tool.active{grid-template-columns:1fr}.content{grid-template-columns:1fr}.tabs{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:max-content}.money{grid-template-columns:1fr}.support{padding:10px 12px}.hero{padding-top:44px}}
+    @media(max-width:520px){.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.breakdown{grid-template-columns:1fr 1fr}.card{padding:17px}.nav{min-height:62px}.hero h1{font-size:2.55rem}}
+  </style>
 </head>
 <body>
-    <div class="calculator">
-        <input type="text" id="display" readonly>
-        <div class="buttons">
-            <button class="clear" onclick="clearDisplay()">C</button>
-            <button onclick="appendToDisplay('(')">(</button>
-            <button onclick="appendToDisplay(')')">)</button>
-            <button class="operator" onclick="appendToDisplay('/')">/</button>
-            
-            <button onclick="appendToDisplay('7')">7</button>
-            <button onclick="appendToDisplay('8')">8</button>
-            <button onclick="appendToDisplay('9')">9</button>
-            <button class="operator" onclick="appendToDisplay('*')">*</button>
-            
-            <button onclick="appendToDisplay('4')">4</button>
-            <button onclick="appendToDisplay('5')">5</button>
-            <button onclick="appendToDisplay('6')">6</button>
-            <button class="operator" onclick="appendToDisplay('-')">-</button>
-            
-            <button onclick="appendToDisplay('1')">1</button>
-            <button onclick="appendToDisplay('2')">2</button>
-            <button onclick="appendToDisplay('3')">3</button>
-            <button class="operator" onclick="appendToDisplay('+')">+</button>
-            
-            <button onclick="appendToDisplay('0')">0</button>
-            <button onclick="appendToDisplay('.')">.</button>
-            <button onclick="calculate()">=</button>
-            <button onclick="deleteLast()">⌫</button>
-        </div>
-    </div>
+<header class="top"><div class="wrap nav"><div class="brand">Calcu<span>Auto</span> France</div><a class="support" href="https://checkout.revolut.com/pay/7a23980e-fa26-4363-93e7-eb50548139d9" target="_blank" rel="noopener sponsored">Soutenir via Revolut</a></div></header>
+<main class="wrap">
+  <section class="hero">
+    <div class="eyebrow">Outils gratuits · France</div>
+    <h1>Combien votre voiture vous coûte vraiment&nbsp;?</h1>
+    <p>Entrez vos propres chiffres et obtenez instantanément une estimation claire. Aucun compte, aucune donnée envoyée à un serveur : les calculs restent dans votre navigateur.</p>
+    <div class="pills"><span class="pill">Carburant</span><span class="pill">Électrique</span><span class="pill">Crédit auto</span><span class="pill">Budget mensuel</span><span class="pill">Coût total</span></div>
+  </section>
 
-    <script>
-        let display = document.getElementById('display');
+  <div class="tabs" role="tablist" aria-label="Calculateurs">
+    <button class="tab active" data-tool="fuel">Trajet carburant</button>
+    <button class="tab" data-tool="ev">Recharge électrique</button>
+    <button class="tab" data-tool="loan">Crédit auto</button>
+    <button class="tab" data-tool="monthly">Budget mensuel</button>
+    <button class="tab" data-tool="tco">Coût total</button>
+  </div>
 
-        function appendToDisplay(value) {
-            display.value += value;
-        }
+  <section id="fuel" class="tool active">
+    <div class="card"><h2>Coût d'un trajet en carburant</h2><p>Calcule le carburant consommé, le coût du trajet et le coût aux 100 km.</p><div class="grid">
+      <div class="field"><label for="f-distance">Distance (km)</label><input id="f-distance" type="number" min="0" step="1" value="250"></div>
+      <div class="field"><label for="f-cons">Consommation (L/100 km)</label><input id="f-cons" type="number" min="0" step="0.1" value="6.5"></div>
+      <div class="field full"><label for="f-price">Prix du carburant (€/L)</label><input id="f-price" type="number" min="0" step="0.001" value="1.80"></div>
+    </div><button class="calc" onclick="fuelCalc()">Calculer mon trajet</button></div>
+    <div class="card result"><span class="sub">Coût estimé du trajet</span><div class="big" id="f-total">29,25 €</div><div class="breakdown"><div class="metric"><b id="f-liters">16,25 L</b><span>Carburant consommé</span></div><div class="metric"><b id="f-100">11,70 €</b><span>Coût / 100 km</span></div></div><div class="tiny">Formule : distance × consommation ÷ 100 × prix au litre.</div></div>
+  </section>
 
-        function clearDisplay() {
-            display.value = '';
-        }
+  <section id="ev" class="tool">
+    <div class="card"><h2>Coût d'un trajet en voiture électrique</h2><p>Estime l'énergie utilisée et le prix d'un trajet selon votre tarif de recharge.</p><div class="grid">
+      <div class="field"><label for="e-distance">Distance (km)</label><input id="e-distance" type="number" min="0" step="1" value="250"></div>
+      <div class="field"><label for="e-cons">Consommation (kWh/100 km)</label><input id="e-cons" type="number" min="0" step="0.1" value="17"></div>
+      <div class="field full"><label for="e-price">Prix de l'électricité (€/kWh)</label><input id="e-price" type="number" min="0" step="0.001" value="0.25"></div>
+    </div><button class="calc" onclick="evCalc()">Calculer la recharge</button></div>
+    <div class="card result"><span class="sub">Coût estimé du trajet</span><div class="big" id="e-total">10,63 €</div><div class="breakdown"><div class="metric"><b id="e-kwh">42,50 kWh</b><span>Énergie utilisée</span></div><div class="metric"><b id="e-100">4,25 €</b><span>Coût / 100 km</span></div></div><div class="tiny">Le prix réel varie selon les pertes de recharge et le tarif de la borne ou du domicile.</div></div>
+  </section>
 
-        function deleteLast() {
-            display.value = display.value.slice(0, -1);
-        }
+  <section id="loan" class="tool">
+    <div class="card"><h2>Mensualité d'un crédit auto</h2><p>Simulation mathématique simple à partir du montant financé, du taux annuel et de la durée.</p><div class="grid">
+      <div class="field"><label for="l-amount">Montant emprunté (€)</label><input id="l-amount" type="number" min="0" step="100" value="20000"></div>
+      <div class="field"><label for="l-rate">Taux annuel (%)</label><input id="l-rate" type="number" min="0" step="0.01" value="5.5"></div>
+      <div class="field full"><label for="l-months">Durée (mois)</label><input id="l-months" type="number" min="1" step="1" value="60"></div>
+    </div><button class="calc" onclick="loanCalc()">Calculer le crédit</button></div>
+    <div class="card result"><span class="sub">Mensualité estimée</span><div class="big" id="l-monthly">382,02 €</div><div class="breakdown"><div class="metric"><b id="l-total">22 921,20 €</b><span>Total remboursé</span></div><div class="metric"><b id="l-interest">2 921,20 €</b><span>Intérêts estimés</span></div></div><div class="tiny">Simulation indicative hors assurance, frais de dossier et autres coûts contractuels.</div></div>
+  </section>
 
-        function calculate() {
-            try {
-                display.value = eval(display.value);
-            } catch (e) {
-                display.value = 'Erreur';
-            }
-        }
-    </script>
+  <section id="monthly" class="tool">
+    <div class="card"><h2>Budget voiture mensuel</h2><p>Regroupez les dépenses récurrentes pour voir le coût mensuel réel de votre véhicule.</p><div class="grid">
+      <div class="field"><label for="m-loan">Crédit / LOA (€)</label><input id="m-loan" type="number" min="0" value="300"></div>
+      <div class="field"><label for="m-fuel">Carburant / recharge (€)</label><input id="m-fuel" type="number" min="0" value="160"></div>
+      <div class="field"><label for="m-ins">Assurance (€)</label><input id="m-ins" type="number" min="0" value="70"></div>
+      <div class="field"><label for="m-park">Parking / péage (€)</label><input id="m-park" type="number" min="0" value="30"></div>
+      <div class="field"><label for="m-maint">Entretien annuel (€)</label><input id="m-maint" type="number" min="0" value="900"></div>
+      <div class="field"><label for="m-other">Autres frais annuels (€)</label><input id="m-other" type="number" min="0" value="300"></div>
+    </div><button class="calc" onclick="monthlyCalc()">Calculer mon budget</button></div>
+    <div class="card result"><span class="sub">Budget voiture mensuel</span><div class="big" id="m-total">660,00 €</div><div class="breakdown"><div class="metric"><b id="m-year">7 920,00 €</b><span>Par an</span></div><div class="metric"><b id="m-day">21,70 €</b><span>Par jour</span></div></div><div class="tiny">Les dépenses annuelles sont divisées par 12 pour les intégrer au budget mensuel.</div></div>
+  </section>
+
+  <section id="tco" class="tool">
+    <div class="card"><h2>Coût total de possession</h2><p>Comparez le prix d'achat avec la revente et les dépenses accumulées sur plusieurs années.</p><div class="grid">
+      <div class="field"><label for="t-buy">Prix d'achat (€)</label><input id="t-buy" type="number" min="0" value="25000"></div>
+      <div class="field"><label for="t-resale">Valeur de revente estimée (€)</label><input id="t-resale" type="number" min="0" value="12000"></div>
+      <div class="field"><label for="t-years">Durée de possession (années)</label><input id="t-years" type="number" min="1" value="5"></div>
+      <div class="field"><label for="t-running">Dépenses annuelles (€)</label><input id="t-running" type="number" min="0" value="4500"></div>
+    </div><button class="calc" onclick="tcoCalc()">Calculer le coût total</button></div>
+    <div class="card result"><span class="sub">Coût total estimé</span><div class="big" id="t-total">35 500,00 €</div><div class="breakdown"><div class="metric"><b id="t-month">591,67 €</b><span>Coût moyen / mois</span></div><div class="metric"><b id="t-dep">13 000,00 €</b><span>Décote estimée</span></div></div><div class="tiny">Coût total = prix d'achat − valeur de revente + dépenses sur la période.</div></div>
+  </section>
+
+  <section class="content">
+    <article class="info"><h3>Pourquoi calculer avant d'acheter ?</h3><p>Le prix affiché d'une voiture n'est qu'une partie du budget. Assurance, énergie, entretien, financement et décote peuvent représenter une part importante du coût réel.</p></article>
+    <article class="info"><h3>Essence ou électrique ?</h3><p>Le bon comparatif dépend de votre consommation réelle, du prix de l'énergie que vous payez et de votre kilométrage. Les deux calculateurs utilisent vos propres hypothèses.</p></article>
+    <article class="info"><h3>Des résultats transparents</h3><p>Aucun barème caché : chaque outil applique une formule simple aux valeurs saisies. Les estimations servent à préparer un budget, pas à remplacer une offre bancaire ou un devis.</p></article>
+  </section>
+
+  <section class="money"><div><h2>CalcuAuto reste gratuit</h2><p>Si l'outil vous a fait gagner du temps ou aidé à éviter une mauvaise dépense, vous pouvez soutenir son développement directement et en toute sécurité via Revolut.</p></div><a class="primary" href="https://checkout.revolut.com/pay/7a23980e-fa26-4363-93e7-eb50548139d9" target="_blank" rel="noopener sponsored">Soutenir CalcuAuto</a></section>
+
+  <section aria-labelledby="faq"><h2 id="faq">Questions fréquentes</h2>
+    <details><summary>Les calculs sont-ils gratuits ?</summary><p>Oui. Les cinq calculateurs sont utilisables sans inscription.</p></details>
+    <details><summary>Mes données sont-elles envoyées quelque part ?</summary><p>Non. Les calculs sont réalisés localement par JavaScript dans le navigateur. Le site ne demande ni nom, ni e-mail, ni création de compte.</p></details>
+    <details><summary>Le simulateur de crédit est-il une offre de prêt ?</summary><p>Non. Il s'agit d'une estimation mathématique. Le coût réel d'un financement dépend du contrat proposé par le prêteur, des frais et éventuellement de l'assurance.</p></details>
+  </section>
+</main>
+<footer><div class="wrap">© 2026 CalcuAuto France · Outil indépendant. Estimations indicatives, sans conseil financier personnalisé.</div></footer>
+<script>
+  const euro=n=>new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(Number.isFinite(n)?n:0);
+  const num=(id)=>Math.max(0,parseFloat(document.getElementById(id).value)||0);
+  const fixed=(n,d=2)=>new Intl.NumberFormat('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d}).format(n);
+  document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tool').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.tool).classList.add('active');}));
+  function fuelCalc(){const d=num('f-distance'),c=num('f-cons'),p=num('f-price'),lit=d*c/100,total=lit*p;document.getElementById('f-total').textContent=euro(total);document.getElementById('f-liters').textContent=fixed(lit)+' L';document.getElementById('f-100').textContent=euro(c*p)}
+  function evCalc(){const d=num('e-distance'),c=num('e-cons'),p=num('e-price'),k=d*c/100,total=k*p;document.getElementById('e-total').textContent=euro(total);document.getElementById('e-kwh').textContent=fixed(k)+' kWh';document.getElementById('e-100').textContent=euro(c*p)}
+  function loanCalc(){const a=num('l-amount'),annual=num('l-rate')/100,months=Math.max(1,Math.round(num('l-months'))),r=annual/12;let m=r===0?a/months:a*r/(1-Math.pow(1+r,-months));const total=m*months;document.getElementById('l-monthly').textContent=euro(m);document.getElementById('l-total').textContent=euro(total);document.getElementById('l-interest').textContent=euro(Math.max(0,total-a))}
+  function monthlyCalc(){const monthly=num('m-loan')+num('m-fuel')+num('m-ins')+num('m-park')+(num('m-maint')+num('m-other'))/12;document.getElementById('m-total').textContent=euro(monthly);document.getElementById('m-year').textContent=euro(monthly*12);document.getElementById('m-day').textContent=euro(monthly*12/365)}
+  function tcoCalc(){const buy=num('t-buy'),resale=num('t-resale'),years=Math.max(1,num('t-years')),running=num('t-running'),dep=Math.max(0,buy-resale),total=dep+running*years;document.getElementById('t-total').textContent=euro(total);document.getElementById('t-month').textContent=euro(total/(years*12));document.getElementById('t-dep').textContent=euro(dep)}
+  fuelCalc();evCalc();loanCalc();monthlyCalc();tcoCalc();
+</script>
 </body>
 </html>
