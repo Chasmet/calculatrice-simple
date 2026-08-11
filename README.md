@@ -1,22 +1,22 @@
-# Calculatrice Simple
+# CalcuAuto France
 
-Une application de calculatrice web simple construite avec HTML, CSS et JavaScript.
+CalcuAuto France est un ensemble d'outils gratuits pour estimer le coût réel d'une voiture : carburant, recharge électrique, crédit auto, budget mensuel, coût total, coût au kilomètre et partage des frais de trajet.
 
-## Fonctionnalités
-- Opérations basiques : +, -, *, /
-- Parentheses supportées
-- Effacer tout (C)
-- Supprimer dernier caractère (⌫)
-- Interface moderne et responsive
+## Site public
 
-## Comment l'utiliser ?
-1. Clone le repository : `git clone https://github.com/Chasmet/calculatrice-simple.git`
-2. Ouvre `index.html` dans ton navigateur
+https://calcuauto-france.onrender.com/
 
-## Démo
-Tu peux tester directement en ouvrant le fichier index.html
+## Calculateurs disponibles
 
-## Améliorations possibles
-- Mode sombre
-- Historique des calculs
-- Support des touches clavier
+- Coût d'un trajet en voiture
+- Coût d'une recharge électrique
+- Mensualité de crédit auto
+- Budget voiture mensuel
+- Coût total de possession
+- Coût de 100 km en essence ou diesel
+- Coût réel d'une voiture au kilomètre
+- Comparateur essence vs électrique sur 100 km
+- Budget carburant annuel
+- Partage des frais d'un trajet entre passagers
+
+Les calculs sont réalisés dans le navigateur à partir des valeurs saisies. Le site est mobile-first, sans inscription et conçu pour fournir des estimations simples et transparentes.
