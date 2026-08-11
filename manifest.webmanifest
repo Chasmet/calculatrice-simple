@@ -1,0 +1,10 @@
+{
+  "name": "CalcuAuto France",
+  "short_name": "CalcuAuto",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#07111f",
+  "theme_color": "#0f172a",
+  "description": "Calculateurs gratuits pour estimer le coût d'une voiture, d'un trajet, d'une recharge et d'un crédit auto.",
+  "lang": "fr-FR"
+}
