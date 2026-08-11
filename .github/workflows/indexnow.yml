@@ -44,6 +44,11 @@ jobs:
             "https://calcuauto-france.onrender.com/credit-auto-calcul-mensualite.html"
             "https://calcuauto-france.onrender.com/budget-voiture-mensuel.html"
             "https://calcuauto-france.onrender.com/cout-total-voiture.html"
+            "https://calcuauto-france.onrender.com/cout-100-km-essence.html"
+            "https://calcuauto-france.onrender.com/cout-voiture-au-km.html"
+            "https://calcuauto-france.onrender.com/essence-vs-electrique-100-km.html"
+            "https://calcuauto-france.onrender.com/budget-carburant-annuel.html"
+            "https://calcuauto-france.onrender.com/partage-frais-trajet-voiture.html"
           )
           for URL in "${URLS[@]}"; do
             CODE=$(curl -sS -o /tmp/indexnow-response -w "%{http_code}" --get "https://api.indexnow.org/indexnow" \
