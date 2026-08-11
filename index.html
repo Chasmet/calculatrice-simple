@@ -119,6 +119,7 @@
   </section>
 </main>
 <footer><div class="wrap">© 2026 CalcuAuto France · Outil indépendant. Estimations indicatives, sans conseil financier personnalisé.</div></footer>
+<script src="analytics.js" defer></script>
 <script>
   const euro=n=>new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(Number.isFinite(n)?n:0);
   const num=(id)=>Math.max(0,parseFloat(document.getElementById(id).value)||0);
