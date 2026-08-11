@@ -1,0 +1,57 @@
+name: Notifier les moteurs via IndexNow
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "**.html"
+      - "sitemap.xml"
+      - "robots.txt"
+      - "9f6c3a2b8d1e4f70a5c9b2d6e8f1a347.txt"
+      - ".github/workflows/indexnow.yml"
+  workflow_dispatch:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Attendre que le site publié expose la clé
+        shell: bash
+        run: |
+          set -e
+          KEY="9f6c3a2b8d1e4f70a5c9b2d6e8f1a347"
+          BASE="https://calcuauto-france.onrender.com"
+          for i in $(seq 1 24); do
+            if curl -fsS "$BASE/$KEY.txt" | grep -q "$KEY"; then
+              echo "Clé IndexNow disponible sur le site."
+              exit 0
+            fi
+            echo "Site pas encore synchronisé, tentative $i/24"
+            sleep 10
+          done
+          echo "La clé IndexNow n'est pas encore visible."
+          exit 1
+
+      - name: Soumettre les pages à IndexNow
+        shell: bash
+        run: |
+          set -e
+          KEY="9f6c3a2b8d1e4f70a5c9b2d6e8f1a347"
+          URLS=(
+            "https://calcuauto-france.onrender.com/"
+            "https://calcuauto-france.onrender.com/cout-trajet-carburant.html"
+            "https://calcuauto-france.onrender.com/cout-recharge-electrique.html"
+            "https://calcuauto-france.onrender.com/calcul-credit-auto.html"
+            "https://calcuauto-france.onrender.com/budget-voiture-mensuel.html"
+            "https://calcuauto-france.onrender.com/cout-total-voiture.html"
+          )
+          for URL in "${URLS[@]}"; do
+            CODE=$(curl -sS -o /tmp/indexnow-response -w "%{http_code}" --get "https://api.indexnow.org/indexnow" \
+              --data-urlencode "url=$URL" \
+              --data-urlencode "key=$KEY")
+            echo "$URL -> HTTP $CODE"
+            if [ "$CODE" != "200" ] && [ "$CODE" != "202" ]; then
+              cat /tmp/indexnow-response || true
+              exit 1
+            fi
+          done
