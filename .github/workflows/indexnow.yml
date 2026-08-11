@@ -39,9 +39,9 @@ jobs:
           KEY="9f6c3a2b8d1e4f70a5c9b2d6e8f1a347"
           URLS=(
             "https://calcuauto-france.onrender.com/"
-            "https://calcuauto-france.onrender.com/cout-trajet-carburant.html"
-            "https://calcuauto-france.onrender.com/cout-recharge-electrique.html"
-            "https://calcuauto-france.onrender.com/calcul-credit-auto.html"
+            "https://calcuauto-france.onrender.com/cout-trajet-voiture.html"
+            "https://calcuauto-france.onrender.com/cout-recharge-voiture-electrique.html"
+            "https://calcuauto-france.onrender.com/credit-auto-calcul-mensualite.html"
             "https://calcuauto-france.onrender.com/budget-voiture-mensuel.html"
             "https://calcuauto-france.onrender.com/cout-total-voiture.html"
           )
