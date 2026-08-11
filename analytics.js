@@ -31,7 +31,7 @@
       const target = event.target.closest('button, a');
       if (!target) return;
 
-      if (target.matches('.calc')) {
+      if (target.matches('button.calc, button.btn')) {
         track('calculate');
       } else if (target.tagName === 'A' && target.href.includes('checkout.revolut.com')) {
         track('support_click');
